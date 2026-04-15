@@ -35,3 +35,4 @@ public class Libro extends Articulo implements IPrestable {
         this.isbn = isbn;
     }
 }
+
