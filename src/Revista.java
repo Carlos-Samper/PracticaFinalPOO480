@@ -36,3 +36,4 @@ public class Revista extends Articulo implements IPrestable {
         this.numero = numero;
     }
 }
+
