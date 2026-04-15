@@ -5,7 +5,7 @@ import java.util.Scanner;
 // ====================================================
 // PRÁCTICA 3 - CÓDIGO A REFACTORIZAR
 // Sistema de gestión de una biblioteca
-// ====================================================
+
 
 public class Biblioteca {
 
