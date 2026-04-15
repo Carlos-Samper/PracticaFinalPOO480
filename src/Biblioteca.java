@@ -2,11 +2,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-// ====================================================
-// PRÁCTICA 3 - CÓDIGO A REFACTORIZAR
-// Sistema de gestión de una biblioteca
-
-
 public class Biblioteca {
 
     // Listas de libros y revistas mezcladas sin estructura clara
