@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Biblioteca {
 
+
+
     // Listas de libros y revistas mezcladas sin estructura clara
     static ArrayList<String[]> libros = new ArrayList<>();
     // Cada String[]: [0]=titulo, [1]=autor, [2]=isbn, [3]=disponible(true/false),
