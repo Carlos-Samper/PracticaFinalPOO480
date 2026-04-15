@@ -1,40 +1,24 @@
 package Modelo;
 
-public class Libro extends Articulo implements IPrestable {
+import java.time.LocalDate;
 
-    public static final int diasMaxDevolucion = 15;
-    String autor;
-    String isbn;
+public class Libro extends Articulo {
+    private String autor;
+    private String isbn;
 
-    public Libro(String titulo, String autor, String isbn) {
-        super(titulo);
+    public Libro(int id, String titulo, String autor, String isbn) {
+        super(id, titulo);
         this.autor = autor;
         this.isbn = isbn;
     }
 
     @Override
-    public void prestar(){
-        setDisponible(false);
-    }
-    @Override
-    public void devolver(){
-        setDisponible(true);
-    }
+    public String obtenerResumen() { return "LIBRO: " + titulo + " | Autor: " + autor + " | ISBN: " + isbn; }
 
-    public String getAutor() {
-        return autor;
-    }
+    public String getAutor() { return autor; }
+    public void setAutor(String autor) { this.autor = autor; }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
+    public String getIsbn() { return isbn; }
+    public void setIsbn(String isbn) { this.isbn = isbn; }
 }
 

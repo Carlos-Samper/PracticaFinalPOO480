@@ -1,6 +1,9 @@
 package Modelo;
 
+import java.time.LocalDate;
+
 public interface IPrestable {
-    void prestar();
+    boolean isDisponible();
+    void prestar(String dniUsuario, LocalDate fechaDevolucion);
     void devolver();
 }

@@ -1,41 +1,24 @@
 package Modelo;
 
-public class Revista extends Articulo implements IPrestable {
+import java.time.LocalDate;
 
-    public static final int diasMaxDevolucion = 7;
-    String issn;
-    int numero;
+public class Revista extends Articulo {
+    private String issn;
+    private int numero;
 
-    public Revista(String titulo, String issn, int numero) {
-        super(titulo);
+    public Revista(int id, String titulo, String issn, int numero) {
+        super(id, titulo);
         this.issn = issn;
         this.numero = numero;
     }
 
     @Override
-    public void prestar() {
-        setDisponible(false);
-    }
+    public String obtenerResumen() { return "REVISTA: " + titulo + " | ISSN: " + issn + " | Num: " + numero; }
 
-    @Override
-    public void devolver() {
-        setDisponible(true);
-    }
+    public String getIssn() { return issn; }
+    public void setIssn(String issn) { this.issn = issn; }
 
-    public String getIssn() {
-        return issn;
-    }
-
-    public void setIssn(String issn) {
-        this.issn = issn;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
+    public int getNumero() { return numero; }
+    public void setNumero(int numero) { this.numero = numero; }
 }
 
