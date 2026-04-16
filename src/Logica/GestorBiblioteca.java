@@ -29,13 +29,13 @@ public class GestorBiblioteca {
             throw new Exception("Ya existe un usuario registrado con el DNI: " + usuario.getDni());
         }
         if (!usuarioDAO.registrarUsuario(usuario)) {
-            throw new Exception("Error al guardar el usuario en la base de datos.");
+            throw new Exception("Error al registrar el usuario en la base de datos.");
         }
     }
 
     public void registrarArticulo(Articulo articulo) throws Exception {
         if (!articuloDAO.registrarArticulo(articulo)) {
-            throw new Exception("Error al guardar el artículo en la base de datos.");
+            throw new Exception("Error al registrar el artículo en la base de datos.");
         }
     }
 
