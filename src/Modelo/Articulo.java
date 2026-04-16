@@ -28,14 +28,18 @@ public abstract class Articulo implements IPrestable{
             this.disponible = false;
             this.prestadoADni = dniUsuario;
             this.fechaDevolucion = fechaDevolucion;
+            System.out.println("Préstamo realizado correctamente.");
         }
     }
 
     @Override
     public void devolver() {
-        this.disponible = true;
-        this.prestadoADni = null;
-        this.fechaDevolucion = null;
+        if (!this.disponible) {
+            this.disponible = true;
+            this.prestadoADni = null;
+            this.fechaDevolucion = null;
+            System.out.println("Devolución realizada correctamente.");
+        }
     }
 
     public abstract  String obtenerResumen();
@@ -53,7 +57,5 @@ public abstract class Articulo implements IPrestable{
     public void setPrestadoADni(String prestadoADni) { this.prestadoADni = prestadoADni; }
 
     public void setDisponible(boolean disponible) { this.disponible = disponible; }
-
-
 
 }
