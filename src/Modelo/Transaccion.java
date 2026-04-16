@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Transaccion {
     private int id;
     private LocalDateTime fechaHora;
-    private String tipoOperacion; // "PRESTAMO" o "DEVOLUCION"
+    private String tipoOperacion; // "PRESTAMO" o "DEVOLUCION" Alomejor queremos usar un Enum
     private String dniUsuario;
     private int idArticulo;
 
@@ -17,15 +17,13 @@ public class Transaccion {
         this.idArticulo = idArticulo;
     }
 
-    // Constructor sin ID ni fecha (para cuando registramos una nueva transacción antes de guardarla en la DB)
     public Transaccion(String tipoOperacion, String dniUsuario, int idArticulo) {
         this.tipoOperacion = tipoOperacion;
         this.dniUsuario = dniUsuario;
         this.idArticulo = idArticulo;
-        this.fechaHora = LocalDateTime.now(); // Coge la fecha y hora actual automáticamente
+        this.fechaHora = LocalDateTime.now();
     }
 
-    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
