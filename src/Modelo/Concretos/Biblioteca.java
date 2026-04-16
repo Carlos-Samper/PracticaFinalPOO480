@@ -1,4 +1,4 @@
-package Modelo;
+package Modelo.Concretos;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,7 +91,7 @@ public class Biblioteca {
         System.out.print("Autor: "); String autor = sc.nextLine();
         System.out.print("ISBN: "); String isbn = sc.nextLine();
         libros.add(new String[]{titulo, autor, isbn, "true", "", ""});
-        System.out.println("Modelo.Libro registrado.");
+        System.out.println("Modelo.Concretos.Libro registrado.");
     }
 
     static void registrarRevista() {
@@ -99,7 +99,7 @@ public class Biblioteca {
         System.out.print("ISSN: "); String issn = sc.nextLine();
         System.out.print("Numero: "); String numero = sc.nextLine();
         revistas.add(new String[]{titulo, issn, numero, "true", "", ""});
-        System.out.println("Modelo.Revista registrada.");
+        System.out.println("Modelo.Concretos.Revista registrada.");
     }
 
     static void registrarDVD() {
@@ -138,14 +138,14 @@ public class Biblioteca {
                     l[5] = dni;
                     // Fecha devolucion: 15 dias
                     l[4] = new Date(System.currentTimeMillis() + 15L * 24 * 60 * 60 * 1000).toString();
-                    System.out.println("Modelo.Libro prestado. Devolver antes de: " + l[4]);
+                    System.out.println("Modelo.Concretos.Libro prestado. Devolver antes de: " + l[4]);
                 } else {
                     System.out.println("El libro no esta disponible. Prestado a: " + l[5]);
                 }
                 return;
             }
         }
-        System.out.println("Modelo.Libro no encontrado.");
+        System.out.println("Modelo.Concretos.Libro no encontrado.");
     }
 
     static void prestarRevista() {
@@ -164,14 +164,14 @@ public class Biblioteca {
                     r[5] = dni;
                     // Fecha devolucion: 7 dias (revistas menos tiempo)
                     r[4] = new Date(System.currentTimeMillis() + 7L * 24 * 60 * 60 * 1000).toString();
-                    System.out.println("Modelo.Revista prestada. Devolver antes de: " + r[4]);
+                    System.out.println("Modelo.Concretos.Revista prestada. Devolver antes de: " + r[4]);
                 } else {
                     System.out.println("La revista no esta disponible. Prestada a: " + r[5]);
                 }
                 return;
             }
         }
-        System.out.println("Modelo.Revista no encontrada.");
+        System.out.println("Modelo.Concretos.Revista no encontrada.");
     }
 
     static void prestarDVD() {
@@ -210,14 +210,14 @@ public class Biblioteca {
                     l[4] = "";
                     String prestadoA = l[5];
                     l[5] = "";
-                    System.out.println("Modelo.Libro devuelto correctamente. Estaba a nombre de: " + prestadoA);
+                    System.out.println("Modelo.Concretos.Libro devuelto correctamente. Estaba a nombre de: " + prestadoA);
                 } else {
                     System.out.println("Este libro no estaba prestado.");
                 }
                 return;
             }
         }
-        System.out.println("Modelo.Libro no encontrado.");
+        System.out.println("Modelo.Concretos.Libro no encontrado.");
     }
 
     static void devolverRevista() {
@@ -230,14 +230,14 @@ public class Biblioteca {
                     r[4] = "";
                     String prestadoA = r[5];
                     r[5] = "";
-                    System.out.println("Modelo.Revista devuelta. Estaba a nombre de: " + prestadoA);
+                    System.out.println("Modelo.Concretos.Revista devuelta. Estaba a nombre de: " + prestadoA);
                 } else {
                     System.out.println("Esta revista no estaba prestada.");
                 }
                 return;
             }
         }
-        System.out.println("Modelo.Revista no encontrada.");
+        System.out.println("Modelo.Concretos.Revista no encontrada.");
     }
 
     static void devolverDVD() {

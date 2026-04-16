@@ -1,8 +1,8 @@
-package Modelo;
+package Modelo.Abstractos;
 
 import java.time.LocalDate;
 
-public abstract class Articulo implements IPrestable{
+public abstract class Articulo implements IPrestable {
     protected int id;
     protected String titulo;
     protected boolean disponible;

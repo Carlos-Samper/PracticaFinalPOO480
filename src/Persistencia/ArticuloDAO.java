@@ -1,9 +1,9 @@
 package Persistencia;
 
-import Modelo.Articulo;
-import Modelo.DVD;
-import Modelo.Libro;
-import Modelo.Revista;
+import Modelo.Abstractos.Articulo;
+import Modelo.Concretos.DVD;
+import Modelo.Concretos.Libro;
+import Modelo.Concretos.Revista;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

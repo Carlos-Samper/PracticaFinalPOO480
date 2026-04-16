@@ -1,6 +1,6 @@
-package Modelo;
+package Modelo.Concretos;
 
-import java.time.LocalDate;
+import Modelo.Abstractos.Articulo;
 
 public class Revista extends Articulo {
     private String issn;
