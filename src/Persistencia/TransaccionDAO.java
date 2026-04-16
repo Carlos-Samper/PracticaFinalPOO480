@@ -1,6 +1,6 @@
 package Persistencia;
 
-import Modelo.Transaccion;
+import Modelo.Concretos.Transaccion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

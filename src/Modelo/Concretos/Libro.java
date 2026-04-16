@@ -1,6 +1,6 @@
-package Modelo;
+package Modelo.Concretos;
 
-import java.time.LocalDate;
+import Modelo.Abstractos.Articulo;
 
 public class Libro extends Articulo {
     private String autor;

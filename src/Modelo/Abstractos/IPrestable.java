@@ -1,4 +1,4 @@
-package Modelo;
+package Modelo.Abstractos;
 
 import java.time.LocalDate;
 
