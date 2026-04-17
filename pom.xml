@@ -92,7 +92,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.example.proyectofinal480/org.example.proyectofinal480.HelloApplication</mainClass>
+                            <mainClass>org.example.proyectofinal/org.proyectofinal480.Aplicacion.AppJavaFX</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

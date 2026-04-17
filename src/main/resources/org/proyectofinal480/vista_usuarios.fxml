@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #fff9e6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.proyectofinal480.Controladores.ControladorVistas">
+   <children>
+      <!-- SIDEBAR - PALETA ROJO ÓXIDO VINTAGE -->
+      <VBox prefWidth="280.0" spacing="10.0" style="-fx-background-color: #9c2007; -fx-border-color: #781a06; -fx-border-width: 0 2 0 0;">
+         <padding>
+            <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+         </padding>
+         <children>
+            <!-- Logo / Título App -->
+            <HBox alignment="CENTER_LEFT" spacing="12.0">
+               <children>
+                  <Label text="biblio virtual" textFill="#fedac7">
+                     <font>
+                        <Font name="Bauhaus 93" size="28.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <VBox alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: FEDAC7; -fx-background-radius: 8;">
+                     <children>
+                        <Label text="480" textFill="#9c2007">
+                           <font>
+                              <Font name="Bauhaus 93" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="35.0" />
+               </VBox.margin>
+            </HBox>
+
+            <!-- Sección Inventario (Libros, Revistas, DVD) -->
+            <Label text="INVENTARIO" textFill="#fca5a5">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="8.0" />
+               </VBox.margin>
+            </Label>
+            
+            <Button fx:id="btnLibro" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" style="-fx-background-color: transparent; -fx-background-radius: 8;" text="   Libros" textFill="#fecaca" onAction="#handleNavegacion">
+               <graphic>
+                  <SVGPath content="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z&#10;M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z&#10;M5 8h4&#10;M9 16h4&#10;M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z&#10;M14 9l4 -1&#10;M16 16l3.923 -.98" fill="#fecaca00" stroke="#fecaca" strokeWidth="2" />
+               </graphic>
+               <font>
+                  <Font name="System Semibold" size="14.0" />
+               </font>
+            </Button>
+            
+            <Button fx:id="btnRevista" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" style="-fx-background-color: transparent; -fx-background-radius: 8;" text="   Revistas" textFill="#fecaca" onAction="#handleNavegacion">
+               <graphic>
+                  <SVGPath content="M7 3m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z&#10;M4.012 7.26a2.005 2.005 0 0 0 -1.012 1.737v10c0 1.1 .9 2 2 2h10c.75 0 1.158 -.385 1.5 -1&#10;M11 7h5&#10;M11 10h6&#10;M11 13h3" fill="TRANSPARENT" stroke="#fecaca" strokeWidth="2" />
+               </graphic>
+               <font>
+                  <Font name="System Semibold" size="14.0" />
+               </font>
+            </Button>
+
+            <Button fx:id="btnDVD" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" style="-fx-background-color: transparent; -fx-background-radius: 8;" text="   DVDs" textFill="#fecaca" onAction="#handleNavegacion">
+               <graphic>
+                  <SVGPath content="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z&#10;M8 4l0 16&#10;M16 4l0 16&#10;M4 8l4 0&#10;M4 16l4 0&#10;M4 12l16 0&#10;M16 8l4 0&#10;M16 16l4 0" fill="TRANSPARENT" stroke="#fecaca" strokeWidth="2" />
+               </graphic>
+               <font>
+                  <Font name="System Semibold" size="14.0" />
+               </font>
+            </Button>
+
+            <!-- Sección Administración (Usuarios, Préstamos) -->
+            <Label text="GESTIÓN" textFill="#fca5a5">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="8.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+
+            <Button fx:id="btnUsuario" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" style="-fx-background-color: #781a06; -fx-background-radius: 8;" text="   Usuarios" textFill="#fecaca" onAction="#handleNavegacion">
+               <graphic>
+                  <SVGPath content="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="TRANSPARENT" stroke="#fecaca" strokeWidth="2" />
+               </graphic>
+               <font>
+                  <Font name="System Semibold" size="14.0" />
+               </font>
+            </Button>
+
+            <Button fx:id="btnHistorial" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" style="-fx-background-color: transparent; -fx-background-radius: 8;" text="   Historial Préstamos" textFill="#fecaca" onAction="#handleNavegacion">
+               <graphic>
+                  <SVGPath content="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2 M15 2H9v4h6V2z" fill="TRANSPARENT" stroke="#fecaca" strokeWidth="2" />
+               </graphic>
+               <font>
+                  <Font name="System Semibold" size="14.0" />
+               </font>
+            </Button>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button fx:id="btnSalir" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="45.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 8;" text="   Salir" textFill="WHITE" onAction="#handleSalir">
+               <graphic>
+                  <SVGPath content="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17l5-5-5-5 M21 12H9" fill="TRANSPARENT" stroke="WHITE" strokeWidth="2" />
+               </graphic>
+               <font>
+                  <Font name="System Semibold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+
+      <!-- ÁREA DE CONTENIDO - TONOS CREMA Y ARENA -->
+      <VBox spacing="25.0" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="32.0" left="40.0" right="40.0" top="32.0" />
+         </padding>
+         <children>
+            <!-- Cabecera con acciones principales -->
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label text="Gestión de Usuarios" textFill="#422006">
+                           <font>
+                              <Font name="Bauhaus 93" size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <HBox spacing="10.0">
+                     <children>
+                        <Button fx:id="btnRegistroUsuario" mnemonicParsing="false" prefHeight="45.0" style="-fx-background-color: #9c2007; -fx-background-radius: 10; -fx-cursor: hand;" text="  Nuevo Usuario" textFill="WHITE" onAction="#handleNuevoRegistro">
+                           <graphic>
+                              <SVGPath content="M12 5v14M5 12h14" fill="TRANSPARENT" stroke="WHITE" strokeWidth="2.5" />
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+
+            <!-- Barra de búsqueda y filtros por disponibilidad -->
+            <HBox spacing="16.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-background-radius: 12; -fx-border-color: #e7d8c5; -fx-border-radius: 12;" HBox.hgrow="ALWAYS">
+                     <children>
+                        <SVGPath content="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" fill="TRANSPARENT" stroke="#92400e" strokeWidth="2">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </SVGPath>
+                        <TextField fx:id="txtBuscar" promptText="Buscar por DNI..." style="-fx-background-color: transparent; -fx-text-fill: #422006; -fx-prompt-text-fill: #92400e;" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+
+            <!-- Tabla principal con botones de acción Prestar/Devolver -->
+            <VBox style="-fx-background-color: #fff; -fx-background-radius: 15; -fx-border-color: FEDAC7; -fx-border-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);" VBox.vgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="tvUsuarios" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 10;" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="colUsuarioNombre" prefWidth="131.99999713897705" text="Nombre" />
+                        <TableColumn fx:id="colUsuarioApellidos" prefWidth="279.2000274658203" text="Apellidos" />
+                        <TableColumn fx:id="colUsuarioDni" prefWidth="130.0" text="DNI" />
+                        <TableColumn fx:id="colUsuarioEmail" prefWidth="180.0" text="email" />
+                        <TableColumn fx:id="colUsuarioTelefono" prefWidth="180.0" text="Teléfono" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

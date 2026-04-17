@@ -5,9 +5,11 @@ module org.example.proyectofinal {
     requires javafx.media;
     requires javafx.web;
 
-
-    opens org.example.proyectofinal480.Aplicacion to javafx.graphics, javafx.fxml;
-    opens org.example.proyectofinal480.Controladores to javafx.fxml;
-    exports org.example.proyectofinal480.Aplicacion;
-    exports org.example.proyectofinal480.Controladores;
+    opens org.proyectofinal480.Aplicacion to javafx.graphics, javafx.fxml;
+    opens org.proyectofinal480.Controladores to javafx.fxml;
+    opens org.proyectofinal480.Modelo to javafx.base, javafx.controls, javafx.fxml;
+    opens org.proyectofinal480.Modelo.Abstractos to javafx.base, javafx.controls, javafx.fxml;
+    opens org.proyectofinal480.Modelo.Concretos to javafx.base, javafx.controls, javafx.fxml;
+    exports org.proyectofinal480.Aplicacion;
+    exports org.proyectofinal480.Controladores;
 }
