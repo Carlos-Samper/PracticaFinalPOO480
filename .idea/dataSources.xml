@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="biblioteca.db" uuid="48f38e9d-3f74-4997-ac14-4a23640ff0b8">
+    <data-source source="LOCAL" name="biblioteca.db" uuid="9e3818d9-172e-4ea6-81a1-9202a38698c2">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\CarlosSamperEnescu\Documents\PracticaFinalPOO480\PracticaFinal\src\biblioteca.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\CarlosSamperEnescu\Documents\PracticaFinal480Maven\ProyectoFinal480\src\main\java\org\example\proyectofinal480\biblioteca.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
