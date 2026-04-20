@@ -58,7 +58,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtPrestamoDni" promptText="Introduce el DNI del usuario" prefHeight="45.0" style="-fx-background-color: #FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15; -fx-background-radius: 15;" GridPane.rowIndex="3" />
+            <TextField fx:id="txtPrestamoDni" promptText="Ej: 12345678A (8 digitos + letra mayuscula)" prefHeight="45.0" style="-fx-background-color: #FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15; -fx-background-radius: 15;" GridPane.rowIndex="3" />
          </children>
       </GridPane>
 

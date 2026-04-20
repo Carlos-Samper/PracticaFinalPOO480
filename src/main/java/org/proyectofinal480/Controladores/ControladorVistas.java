@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import org.proyectofinal480.Excepciones.BibliotecaException;
 import org.proyectofinal480.Logica.GestorBiblioteca;
 import org.proyectofinal480.Modelo.Abstractos.Articulo;
 import org.proyectofinal480.Modelo.Concretos.DVD;
@@ -23,7 +24,10 @@ import org.proyectofinal480.Modelo.Transaccion;
 import org.proyectofinal480.Modelo.Usuario;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 public class ControladorVistas {
 
@@ -41,6 +45,7 @@ public class ControladorVistas {
     @FXML private Button btnPrestado;
     @FXML private Button btnPrestar;
     @FXML private Button btnDevolver;
+    @FXML private Button btnBorrar;
 
     @FXML private TableView<Libro> tvLibros;
     @FXML private TableColumn<Libro, Integer> colLibroId;
@@ -140,8 +145,12 @@ public class ControladorVistas {
             colHistorialArticuloId.setCellValueFactory(new PropertyValueFactory<>("idArticulo"));
             if (colHistorialNombreUsuario != null) {
                 colHistorialNombreUsuario.setCellValueFactory(data -> {
-                    Usuario u = gestorBiblioteca.obtenerUsuarioPorDni(data.getValue().getDniUsuario());
-                    return new SimpleStringProperty(u != null ? u.getNombreCompleto() : data.getValue().getDniUsuario());
+                    try {
+                        Usuario u = gestorBiblioteca.obtenerUsuarioPorDni(data.getValue().getDniUsuario());
+                        return new SimpleStringProperty(u != null ? u.getNombreCompleto() : data.getValue().getDniUsuario());
+                    } catch (BibliotecaException e) {
+                        return new SimpleStringProperty(data.getValue().getDniUsuario());
+                    }
                 });
             }
             if (txtBuscar != null)
@@ -171,65 +180,89 @@ public class ControladorVistas {
         };
     }
 
-
     private void aplicarFiltrosLibros() {
-        String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
-        tvLibros.setItems(FXCollections.observableArrayList(
-            gestorBiblioteca.obtenerTodosLosArticulos().stream()
-                .filter(a -> a instanceof Libro)
-                .filter(a -> filtroActivo.equals("todos") ||
-                             (filtroActivo.equals("disponibles") && a.isDisponible()) ||
-                             (filtroActivo.equals("prestados") && !a.isDisponible()))
-                .filter(a -> q.isEmpty() || a.getTitulo().toLowerCase().contains(q))
-                .map(a -> (Libro) a)
-                .collect(Collectors.toList())));
+        try {
+            String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
+            tvLibros.setItems(FXCollections.observableArrayList(
+                gestorBiblioteca.obtenerTodosLosArticulos().stream()
+                    .filter(a -> a instanceof Libro)
+                    .filter(a -> filtroActivo.equals("todos") ||
+                                 (filtroActivo.equals("disponibles") && a.isDisponible()) ||
+                                 (filtroActivo.equals("prestados") && !a.isDisponible()))
+                    .filter(a -> q.isEmpty() || a.getTitulo().toLowerCase().contains(q))
+                    .map(a -> (Libro) a)
+                    .collect(Collectors.toList())));
+        } catch (BibliotecaException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", e.getMessage());
+        }
     }
 
     private void aplicarFiltrosRevistas() {
-        String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
-        tvRevistas.setItems(FXCollections.observableArrayList(
-            gestorBiblioteca.obtenerTodosLosArticulos().stream()
-                .filter(a -> a instanceof Revista)
-                .filter(a -> filtroActivo.equals("todos") ||
-                             (filtroActivo.equals("disponibles") && a.isDisponible()) ||
-                             (filtroActivo.equals("prestados") && !a.isDisponible()))
-                .filter(a -> q.isEmpty() || a.getTitulo().toLowerCase().contains(q))
-                .map(a -> (Revista) a)
-                .collect(Collectors.toList())));
+        try {
+            String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
+            tvRevistas.setItems(FXCollections.observableArrayList(
+                gestorBiblioteca.obtenerTodosLosArticulos().stream()
+                    .filter(a -> a instanceof Revista)
+                    .filter(a -> filtroActivo.equals("todos") ||
+                                 (filtroActivo.equals("disponibles") && a.isDisponible()) ||
+                                 (filtroActivo.equals("prestados") && !a.isDisponible()))
+                    .filter(a -> q.isEmpty() || a.getTitulo().toLowerCase().contains(q))
+                    .map(a -> (Revista) a)
+                    .collect(Collectors.toList())));
+        } catch (BibliotecaException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", e.getMessage());
+        }
     }
 
     private void aplicarFiltrosDVDs() {
-        String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
-        tvDVDs.setItems(FXCollections.observableArrayList(
-            gestorBiblioteca.obtenerTodosLosArticulos().stream()
-                .filter(a -> a instanceof DVD)
-                .filter(a -> filtroActivo.equals("todos") ||
-                             (filtroActivo.equals("disponibles") && a.isDisponible()) ||
-                             (filtroActivo.equals("prestados") && !a.isDisponible()))
-                .filter(a -> q.isEmpty() || a.getTitulo().toLowerCase().contains(q))
-                .map(a -> (DVD) a)
-                .collect(Collectors.toList())));
+        try {
+            String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
+            tvDVDs.setItems(FXCollections.observableArrayList(
+                gestorBiblioteca.obtenerTodosLosArticulos().stream()
+                    .filter(a -> a instanceof DVD)
+                    .filter(a -> filtroActivo.equals("todos") ||
+                                 (filtroActivo.equals("disponibles") && a.isDisponible()) ||
+                                 (filtroActivo.equals("prestados") && !a.isDisponible()))
+                    .filter(a -> q.isEmpty() || a.getTitulo().toLowerCase().contains(q))
+                    .map(a -> (DVD) a)
+                    .collect(Collectors.toList())));
+        } catch (BibliotecaException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", e.getMessage());
+        }
     }
 
     private void aplicarFiltrosUsuarios() {
-        String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
-        tvUsuarios.setItems(FXCollections.observableArrayList(
-            gestorBiblioteca.obtenerTodosLosUsuarios().stream()
-                .filter(u -> q.isEmpty() || u.getDni().toLowerCase().contains(q))
-                .collect(Collectors.toList())));
+        try {
+            String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
+            tvUsuarios.setItems(FXCollections.observableArrayList(
+                gestorBiblioteca.obtenerTodosLosUsuarios().stream()
+                    .filter(u -> q.isEmpty() || u.getDni().toLowerCase().contains(q))
+                    .collect(Collectors.toList())));
+        } catch (BibliotecaException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", e.getMessage());
+        }
     }
 
     private void aplicarFiltrosHistorial() {
-        String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
-        tvHistorial.setItems(FXCollections.observableArrayList(
-            gestorBiblioteca.obtenerTodasLasTransacciones().stream()
-                .filter(t -> {
-                    if (q.isEmpty()) return true;
-                    Usuario u = gestorBiblioteca.obtenerUsuarioPorDni(t.getDniUsuario());
-                    String nombre = u != null ? u.getNombreCompleto().toLowerCase() : t.getDniUsuario().toLowerCase();
-                    return nombre.contains(q);
-                })
-                .collect(Collectors.toList())));
+        try {
+            String q = txtBuscar != null ? txtBuscar.getText().toLowerCase() : "";
+            List<Transaccion> transacciones = gestorBiblioteca.obtenerTodasLasTransacciones();
+            tvHistorial.setItems(FXCollections.observableArrayList(
+                transacciones.stream()
+                    .filter(t -> {
+                        if (q.isEmpty()) return true;
+                        try {
+                            Usuario u = gestorBiblioteca.obtenerUsuarioPorDni(t.getDniUsuario());
+                            String nombre = u != null ? u.getNombreCompleto().toLowerCase() : t.getDniUsuario().toLowerCase();
+                            return nombre.contains(q);
+                        } catch (BibliotecaException e) {
+                            return t.getDniUsuario().toLowerCase().contains(q);
+                        }
+                    })
+                    .collect(Collectors.toList())));
+        } catch (BibliotecaException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", e.getMessage());
+        }
     }
 
     private void cargarLibros()   { aplicarFiltrosLibros(); }
@@ -270,7 +303,7 @@ public class ControladorVistas {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
-            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error de navegacion", e.getMessage());
         }
     }
 
@@ -328,7 +361,7 @@ public class ControladorVistas {
             stage.setScene(new Scene(root));
             stage.showAndWait();
         } catch (Exception e) {
-            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error al abrir formulario", e.getMessage());
         }
     }
 
@@ -378,16 +411,16 @@ public class ControladorVistas {
     private void handlePrestar(ActionEvent event) {
         Articulo seleccionado = obtenerArticuloSeleccionado();
         if (seleccionado == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Selecciona un artículo de la tabla primero.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin seleccion", "Selecciona un articulo de la tabla primero.");
             return;
         }
         if (!seleccionado.isDisponible()) {
-            mostrarAlerta(Alert.AlertType.WARNING, "No disponible", "Este artículo ya está prestado a otro usuario.");
+            mostrarAlerta(Alert.AlertType.WARNING, "No disponible", "Este articulo ya esta prestado a otro usuario.");
             return;
         }
         abrirFormulario(
                 "/org/proyectofinal480/vista_formulario_prestamo.fxml",
-            "Préstamo de Artículo",
+            "Prestamo de Articulo",
             this::recargarTablaActiva,
             seleccionado.getId()
         );
@@ -397,19 +430,63 @@ public class ControladorVistas {
     private void handleDevolver(ActionEvent event) {
         Articulo seleccionado = obtenerArticuloSeleccionado();
         if (seleccionado == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Selecciona un artículo de la tabla primero.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin seleccion", "Selecciona un articulo de la tabla primero.");
             return;
         }
         if (seleccionado.isDisponible()) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Ya disponible", "Este artículo ya está disponible y no ha sido prestado.");
+            mostrarAlerta(Alert.AlertType.WARNING, "Ya disponible", "Este articulo ya esta disponible y no ha sido prestado.");
             return;
         }
         abrirFormulario(
                 "/org/proyectofinal480/vista_formulario_devolucion.fxml",
-            "Devolución de Artículo",
+            "Devolucion de Articulo",
             this::recargarTablaActiva,
             seleccionado.getId()
         );
+    }
+
+    @FXML
+    private void handleBorrar(ActionEvent event) {
+        if (tvUsuarios != null) {
+            Usuario usuario = tvUsuarios.getSelectionModel().getSelectedItem();
+            if (usuario == null) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Sin seleccion", "Selecciona un usuario de la tabla primero.");
+                return;
+            }
+            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmacion.setTitle("Confirmar borrado");
+            confirmacion.setHeaderText(null);
+            confirmacion.setContentText("Se va a eliminar al usuario con DNI: " + usuario.getDni() + ". Esta accion no se puede deshacer. Continuar?");
+            Optional<ButtonType> resultado = confirmacion.showAndWait();
+            if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+                try {
+                    gestorBiblioteca.eliminarUsuario(usuario.getDni());
+                    cargarUsuarios();
+                } catch (BibliotecaException e) {
+                    mostrarAlerta(Alert.AlertType.ERROR, "Error al eliminar", e.getMessage());
+                }
+            }
+            return;
+        }
+
+        Articulo articulo = obtenerArticuloSeleccionado();
+        if (articulo == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin seleccion", "Selecciona un articulo de la tabla primero.");
+            return;
+        }
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Confirmar borrado");
+        confirmacion.setHeaderText(null);
+        confirmacion.setContentText("Se va a eliminar el articulo con ID: " + articulo.getId() + " - " + articulo.getTitulo() + ". Esta accion no se puede deshacer. Continuar?");
+        Optional<ButtonType> resultado = confirmacion.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            try {
+                gestorBiblioteca.eliminarArticulo(articulo.getId());
+                recargarTablaActiva();
+            } catch (BibliotecaException e) {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error al eliminar", e.getMessage());
+            }
+        }
     }
 
     private Articulo obtenerArticuloSeleccionado() {

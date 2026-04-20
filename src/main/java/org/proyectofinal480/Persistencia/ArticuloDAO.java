@@ -1,11 +1,10 @@
 package org.proyectofinal480.Persistencia;
 
-
+import org.proyectofinal480.Excepciones.BibliotecaException;
 import org.proyectofinal480.Modelo.Abstractos.Articulo;
 import org.proyectofinal480.Modelo.Concretos.DVD;
 import org.proyectofinal480.Modelo.Concretos.Libro;
 import org.proyectofinal480.Modelo.Concretos.Revista;
-
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class ArticuloDAO {
 
-    public boolean registrarArticulo(Articulo articulo) {
+    public boolean registrarArticulo(Articulo articulo) throws BibliotecaException {
         String sql = "INSERT INTO Articulos (tipo_articulo, titulo, disponible, autor, isbn, issn, numero, director, duracion_min) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -51,13 +50,11 @@ public class ArticuloDAO {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new BibliotecaException("Error de base de datos al registrar articulo: " + e.getMessage(), e);
         }
     }
-    // 3 Métodos distintos para cada tipo de artículo y llamarlos según formulario
 
-    public List<Articulo> listarTodos() {
+    public List<Articulo> listarTodos() throws BibliotecaException {
         List<Articulo> lista = new ArrayList<>();
         String sql = "SELECT * FROM Articulos";
 
@@ -95,12 +92,12 @@ public class ArticuloDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BibliotecaException("Error de base de datos al listar articulos: " + e.getMessage(), e);
         }
         return lista;
     }
 
-    public boolean actualizarEstado(Articulo articulo) {
+    public boolean actualizarEstado(Articulo articulo) throws BibliotecaException {
         String sql = "UPDATE Articulos SET disponible = ?, prestado_a_dni = ?, fecha_devolucion = ? WHERE id = ?";
 
         try (Connection conn = ConexionDB.getConexion();
@@ -125,8 +122,21 @@ public class ArticuloDAO {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new BibliotecaException("Error de base de datos al actualizar estado del articulo: " + e.getMessage(), e);
+        }
+    }
+
+    public boolean eliminarArticulo(int id) throws BibliotecaException {
+        String sql = "DELETE FROM Articulos WHERE id = ?";
+
+        try (Connection conn = ConexionDB.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            int filas = pstmt.executeUpdate();
+            return filas > 0;
+        } catch (SQLException e) {
+            throw new BibliotecaException("Error de base de datos al eliminar articulo: " + e.getMessage(), e);
         }
     }
 }

@@ -59,32 +59,32 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUsuarioDni" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="1" />
+            <TextField fx:id="txtUsuarioDni" prefHeight="45.0" promptText="Ej: 12345678A (8 digitos + letra mayuscula)" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="1" />
             <Label text="Nombre" textFill="#78350f" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUsuarioNombre" layoutX="10.0" layoutY="160.0" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="3" />
+            <TextField fx:id="txtUsuarioNombre" layoutX="10.0" layoutY="160.0" prefHeight="45.0" promptText="Ej: Juan" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="3" />
             <Label text="Apellidos" textFill="#78350f" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUsuarioApellidos" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="5" />
+            <TextField fx:id="txtUsuarioApellidos" prefHeight="45.0" promptText="Ej: Garcia Lopez" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="5" />
             
             <Label text="email" textFill="#78350f" GridPane.rowIndex="6">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUsuarioEmail" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="7" />
+            <TextField fx:id="txtUsuarioEmail" prefHeight="45.0" promptText="Ej: juan@email.com (opcional)" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="7" />
             <Label layoutX="10.0" layoutY="308.0" text="Teléfono" textFill="#78350f" GridPane.rowIndex="8">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUsuarioTelefono" layoutX="10.0" layoutY="355.0" prefHeight="44.0" prefWidth="416.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="9" />
+            <TextField fx:id="txtUsuarioTelefono" layoutX="10.0" layoutY="355.0" prefHeight="44.0" prefWidth="416.0" promptText="Ej: 612345678 (9 digitos, empieza por 6-9, opcional)" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="9" />
          </children>
       </GridPane>
       

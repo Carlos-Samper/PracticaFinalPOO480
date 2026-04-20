@@ -55,20 +55,20 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRevistaTitulo" layoutX="10.0" layoutY="160.0" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="1" />
+            <TextField fx:id="txtRevistaTitulo" layoutX="10.0" layoutY="160.0" prefHeight="45.0" promptText="Ej: National Geographic" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="1" />
             
             <Label text="ISSN" textFill="#78350f" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRevistaIssn" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="3" />
+            <TextField fx:id="txtRevistaIssn" prefHeight="45.0" promptText="Ej: 0027-9358 (4 digitos-3 digitos y letra/X)" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="3" />
             <Label text="Número" textFill="#78350f" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtRevistaNumero" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="5" />
+            <TextField fx:id="txtRevistaNumero" prefHeight="45.0" promptText="Ej: 42 (numero entero positivo)" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       

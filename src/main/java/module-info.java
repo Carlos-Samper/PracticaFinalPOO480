@@ -12,4 +12,6 @@ module org.example.proyectofinal {
     opens org.proyectofinal480.Modelo.Concretos to javafx.base, javafx.controls, javafx.fxml;
     exports org.proyectofinal480.Aplicacion;
     exports org.proyectofinal480.Controladores;
+    exports org.proyectofinal480.Excepciones;
+    exports org.proyectofinal480.Logica;
 }

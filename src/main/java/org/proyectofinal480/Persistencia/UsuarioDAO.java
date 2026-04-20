@@ -1,5 +1,6 @@
 package org.proyectofinal480.Persistencia;
 
+import org.proyectofinal480.Excepciones.BibliotecaException;
 import org.proyectofinal480.Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    public boolean registrarUsuario(Usuario usuario) {
+    public boolean registrarUsuario(Usuario usuario) throws BibliotecaException {
         String sql = "INSERT INTO Usuarios (dni, nombre, apellidos, email, telefono) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = ConexionDB.getConexion();
@@ -25,12 +26,11 @@ public class UsuarioDAO {
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new BibliotecaException("Error de base de datos al registrar usuario: " + e.getMessage(), e);
         }
     }
 
-    public Usuario obtenerUsuarioPorDni(String dni) {
+    public Usuario obtenerUsuarioPorDni(String dni) throws BibliotecaException {
         String sql = "SELECT * FROM Usuarios WHERE dni = ?";
 
         try (Connection conn = ConexionDB.getConexion();
@@ -49,12 +49,12 @@ public class UsuarioDAO {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BibliotecaException("Error de base de datos al buscar usuario: " + e.getMessage(), e);
         }
         return null;
     }
 
-    public List<Usuario> listarTodos() {
+    public List<Usuario> listarTodos() throws BibliotecaException {
         List<Usuario> listaUsuarios = new ArrayList<>();
         String sql = "SELECT * FROM Usuarios";
 
@@ -72,8 +72,22 @@ public class UsuarioDAO {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BibliotecaException("Error de base de datos al listar usuarios: " + e.getMessage(), e);
         }
         return listaUsuarios;
+    }
+
+    public boolean eliminarUsuario(String dni) throws BibliotecaException {
+        String sql = "DELETE FROM Usuarios WHERE dni = ?";
+
+        try (Connection conn = ConexionDB.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, dni);
+            int filas = pstmt.executeUpdate();
+            return filas > 0;
+        } catch (SQLException e) {
+            throw new BibliotecaException("Error de base de datos al eliminar usuario: " + e.getMessage(), e);
+        }
     }
 }

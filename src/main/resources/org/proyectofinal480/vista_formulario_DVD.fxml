@@ -55,20 +55,20 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtDvdTitulo" layoutX="10.0" layoutY="160.0" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="1" />
+            <TextField fx:id="txtDvdTitulo" layoutX="10.0" layoutY="160.0" prefHeight="45.0" promptText="Ej: Inception" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="1" />
             
             <Label text="Director" textFill="#78350f" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtDvdDirector" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="3" />
+            <TextField fx:id="txtDvdDirector" prefHeight="45.0" promptText="Ej: Christopher Nolan" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="3" />
             <Label text="Duración en minutos" textFill="#78350f" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtDvdDuracion" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="5" />
+            <TextField fx:id="txtDvdDuracion" prefHeight="45.0" promptText="Ej: 148 (minutos, entero positivo)" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       

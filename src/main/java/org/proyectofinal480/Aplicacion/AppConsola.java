@@ -1,6 +1,9 @@
 package org.proyectofinal480.Aplicacion;
 
+import org.proyectofinal480.Excepciones.BibliotecaException;
+import org.proyectofinal480.Excepciones.ValidacionException;
 import org.proyectofinal480.Logica.GestorBiblioteca;
+import org.proyectofinal480.Logica.Validador;
 import org.proyectofinal480.Modelo.Abstractos.Articulo;
 import org.proyectofinal480.Modelo.Concretos.DVD;
 import org.proyectofinal480.Modelo.Concretos.Libro;
@@ -14,8 +17,8 @@ import java.util.Scanner;
 
 public class AppConsola {
 
-    private static GestorBiblioteca gestor = new GestorBiblioteca();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final GestorBiblioteca gestor = new GestorBiblioteca();
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         boolean salir = false;
@@ -25,7 +28,7 @@ public class AppConsola {
 
             int opcion;
             try {
-                opcion = Integer.parseInt(scanner.nextLine());
+                opcion = Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("Error: Ingrese un numero valido.");
                 continue;
@@ -56,6 +59,12 @@ public class AppConsola {
                 case 8:
                     mostrarHistorial();
                     break;
+                case 9:
+                    eliminarArticulo();
+                    break;
+                case 10:
+                    eliminarUsuario();
+                    break;
                 case 0:
                     salir = true;
                     System.out.println("Saliendo del sistema...");
@@ -65,6 +74,7 @@ public class AppConsola {
             }
         }
     }
+
     private static void showMenu() {
         System.out.println("\n--- GESTION DE BIBLIOTECA 480 (CONSOLA) ---");
         System.out.println("1. Registrar Usuario");
@@ -75,85 +85,95 @@ public class AppConsola {
         System.out.println("6. Prestar Articulo");
         System.out.println("7. Devolver Articulo");
         System.out.println("8. Historial de Transacciones");
+        System.out.println("9. Eliminar Articulo");
+        System.out.println("10. Eliminar Usuario");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opcion: ");
     }
 
     private static void registrarUsuario() {
         System.out.println("\n-- REGISTRO DE USUARIO --");
-        System.out.print("DNI: ");
-        String dni = scanner.nextLine();
-        System.out.print("Nombre: ");
-        String nombre = scanner.nextLine();
-        System.out.print("Apellidos: ");
-        String apellidos = scanner.nextLine();
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
-        System.out.print("Telefono: ");
-        String telefono = scanner.nextLine();
-
-        Usuario u = new Usuario(dni, nombre, apellidos, email, telefono);
         try {
+            System.out.print("DNI (ej: 12345678A): ");
+            String dni = scanner.nextLine().trim();
+            Validador.validarDni(dni);
+
+            System.out.print("Nombre: ");
+            String nombre = scanner.nextLine().trim();
+            Validador.validarNoVacio(nombre, "Nombre");
+
+            System.out.print("Apellidos: ");
+            String apellidos = scanner.nextLine().trim();
+            Validador.validarNoVacio(apellidos, "Apellidos");
+
+            System.out.print("Email (opcional, ej: usuario@email.com): ");
+            String email = scanner.nextLine().trim();
+            Validador.validarEmail(email);
+
+            System.out.print("Telefono (opcional, ej: 612345678): ");
+            String telefono = scanner.nextLine().trim();
+            Validador.validarTelefono(telefono);
+
+            Usuario u = new Usuario(dni, nombre, apellidos, email, telefono);
             gestor.registrarUsuario(u);
             System.out.println("Usuario registrado correctamente.");
-        } catch (Exception e) {
-            System.out.println("Error al registrar: " + e.getMessage());
+        } catch (BibliotecaException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
     private static void registrarArticulo() {
         System.out.println("\n-- REGISTRO DE ARTICULO --");
         System.out.print("Tipo (1=Libro, 2=Revista, 3=DVD): ");
-        String tipoStr = scanner.nextLine();
-        
+        String tipoStr = scanner.nextLine().trim();
+
         if (!tipoStr.equals("1") && !tipoStr.equals("2") && !tipoStr.equals("3")) {
             System.out.println("Tipo no valido.");
             return;
         }
 
         System.out.print("Titulo: ");
-        String titulo = scanner.nextLine();
+        String titulo = scanner.nextLine().trim();
 
         Articulo articulo = null;
         try {
             switch (tipoStr) {
                 case "1":
                     System.out.print("Autor: ");
-                    String autor = scanner.nextLine();
-                    System.out.print("ISBN: ");
-                    String isbn = scanner.nextLine();
+                    String autor = scanner.nextLine().trim();
+                    Validador.validarNoVacio(autor, "Autor");
+                    System.out.print("ISBN (ej: 978-84-376-0494-7): ");
+                    String isbn = scanner.nextLine().trim();
+                    Validador.validarIsbn(isbn);
                     articulo = new Libro(0, titulo, autor, isbn);
                     break;
                 case "2":
-                    System.out.print("ISSN: ");
-                    String issn = scanner.nextLine();
-                    System.out.print("Numero: ");
-                    int numero = Integer.parseInt(scanner.nextLine());
-                    articulo = new Revista(0, titulo, issn, numero);
+                    System.out.print("ISSN (ej: 1234-567X): ");
+                    String issn = scanner.nextLine().trim();
+                    Validador.validarIssn(issn);
+                    System.out.print("Numero (entero positivo): ");
+                    String numStr = scanner.nextLine().trim();
+                    Validador.validarNumeroPositivo(numStr, "Numero");
+                    articulo = new Revista(0, titulo, issn, Integer.parseInt(numStr));
                     break;
                 case "3":
                     System.out.print("Director: ");
-                    String director = scanner.nextLine();
-                    System.out.print("Duracion (minutos): ");
-                    int duracion = Integer.parseInt(scanner.nextLine());
-                    articulo = new DVD(0, titulo, director, duracion);
+                    String director = scanner.nextLine().trim();
+                    Validador.validarNoVacio(director, "Director");
+                    System.out.print("Duracion en minutos (entero positivo): ");
+                    String durStr = scanner.nextLine().trim();
+                    Validador.validarNumeroPositivo(durStr, "Duracion");
+                    articulo = new DVD(0, titulo, director, Integer.parseInt(durStr));
                     break;
             }
-        } catch (NumberFormatException e) {
-             System.out.println("Error: Formato numerico invalido.");
-             return;
-        } catch (Exception e) {
-             System.out.println("Error al leer datos especificos: " + e.getMessage());
-             return;
-        }
 
-        try {
             if (articulo != null) {
+                Validador.validarNoVacio(titulo, "Titulo");
                 gestor.registrarArticulo(articulo);
                 System.out.println("Articulo registrado correctamente.");
             }
-        } catch (Exception e) {
-            System.out.println("Error al registrar articulo: " + e.getMessage());
+        } catch (BibliotecaException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -168,7 +188,7 @@ public class AppConsola {
             for (Usuario u : usuarios) {
                 System.out.println("DNI: " + u.getDni() + " | Nombre: " + u.getNombreCompleto());
             }
-        } catch (Exception e) {
+        } catch (BibliotecaException e) {
             System.out.println("Error al listar usuarios: " + e.getMessage());
         }
     }
@@ -178,15 +198,15 @@ public class AppConsola {
         try {
             List<Articulo> articulos = gestor.obtenerTodosLosArticulos();
             if (articulos.isEmpty()) {
-                 System.out.println("No hay articulos registrados.");
-                 return;
+                System.out.println("No hay articulos registrados.");
+                return;
             }
             for (Articulo a : articulos) {
                 String tipo = a.getClass().getSimpleName();
                 String estado = a.isDisponible() ? "Disponible" : "Prestado a " + a.getPrestadoADni();
                 System.out.println("ID: " + a.getId() + " | [" + tipo + "] " + a.getTitulo() + " - " + estado);
             }
-        } catch (Exception e) {
+        } catch (BibliotecaException e) {
             System.out.println("Error al listar articulos: " + e.getMessage());
         }
     }
@@ -194,21 +214,21 @@ public class AppConsola {
     private static void buscarArticulos() {
         System.out.println("\n-- BUSCAR ARTICULOS --");
         System.out.print("Ingrese el titulo (o parte del mismo): ");
-        String tituloBusqueda = scanner.nextLine();
-        
+        String tituloBusqueda = scanner.nextLine().trim();
+
         try {
             List<Articulo> articulosEncontrados = gestor.buscarArticulosPorTitulo(tituloBusqueda);
             if (articulosEncontrados.isEmpty()) {
                 System.out.println("No se encontraron articulos con ese titulo.");
                 return;
             }
-            System.out.println("Resultados de la busqueda:");
+            System.out.println("Resultados:");
             for (Articulo a : articulosEncontrados) {
                 String tipo = a.getClass().getSimpleName();
                 String estado = a.isDisponible() ? "Disponible" : "Prestado a " + a.getPrestadoADni();
                 System.out.println("ID: " + a.getId() + " | [" + tipo + "] " + a.getTitulo() + " - " + estado);
             }
-        } catch (Exception e) {
+        } catch (BibliotecaException e) {
             System.out.println("Error al buscar articulos: " + e.getMessage());
         }
     }
@@ -217,15 +237,16 @@ public class AppConsola {
         System.out.println("\n-- PRESTAR ARTICULO --");
         try {
             System.out.print("ID del articulo: ");
-            int idArticulo = Integer.parseInt(scanner.nextLine());
-            System.out.print("DNI del usuario: ");
-            String dni = scanner.nextLine();
+            String idStr = scanner.nextLine().trim();
+            Validador.validarNumeroPositivo(idStr, "ID Articulo");
 
-            gestor.prestarArticulo(idArticulo, dni);
+            System.out.print("DNI del usuario (ej: 12345678A): ");
+            String dni = scanner.nextLine().trim();
+            Validador.validarDni(dni);
+
+            gestor.prestarArticulo(Integer.parseInt(idStr), dni);
             System.out.println("Prestamo realizado con exito.");
-        } catch (NumberFormatException e) {
-            System.out.println("Error: El ID del articulo debe ser un numero.");
-        } catch (Exception e) {
+        } catch (BibliotecaException e) {
             System.out.println("Error al prestar: " + e.getMessage());
         }
     }
@@ -234,13 +255,15 @@ public class AppConsola {
         System.out.println("\n-- DEVOLVER ARTICULO --");
         try {
             System.out.print("ID del articulo: ");
-            int idArticulo = Integer.parseInt(scanner.nextLine());
+            String idStr = scanner.nextLine().trim();
+            Validador.validarNumeroPositivo(idStr, "ID Articulo");
 
-            gestor.devolverArticulo(idArticulo);
+            double recargo = gestor.devolverArticulo(Integer.parseInt(idStr));
             System.out.println("Devolucion realizada con exito.");
-        } catch (NumberFormatException e) {
-            System.out.println("Error: El ID del articulo debe ser un numero.");
-        } catch (Exception e) {
+            if (recargo > 0) {
+                System.out.printf("ATENCION: Devolucion con retraso. Recargo a abonar: %.2f EUR.%n", recargo);
+            }
+        } catch (BibliotecaException e) {
             System.out.println("Error al devolver: " + e.getMessage());
         }
     }
@@ -253,28 +276,83 @@ public class AppConsola {
                 System.out.println("No hay transacciones registradas.");
                 return;
             }
-            
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
             for (Transaccion t : transacciones) {
                 Articulo articulo = gestor.obtenerArticuloPorId(t.getIdArticulo());
                 Usuario usuario = gestor.obtenerUsuarioPorDni(t.getDniUsuario());
-                
+
                 String tituloArticulo = (articulo != null) ? articulo.getTitulo() : "Articulo Desconocido";
                 String tipoArticulo = (articulo != null) ? articulo.getClass().getSimpleName() : "Desconocido";
                 String nombreUsuario = (usuario != null) ? usuario.getNombreCompleto() : "Usuario Desconocido";
-                
-                System.out.println(String.format("[%s] %s | %s (%s) | %s (DNI: %s)",
+
+                System.out.printf("[%s] %s | %s (%s) | %s (DNI: %s)%n",
                         t.getFechaHora().format(formatter),
                         t.getTipoOperacion(),
                         tituloArticulo,
                         tipoArticulo,
                         nombreUsuario,
-                        t.getDniUsuario()
-                ));
+                        t.getDniUsuario());
             }
-        } catch (Exception e) {
+        } catch (BibliotecaException e) {
             System.out.println("Error al mostrar historial: " + e.getMessage());
+        }
+    }
+
+    private static void eliminarArticulo() {
+        System.out.println("\n-- ELIMINAR ARTICULO --");
+        try {
+            listarArticulos();
+            System.out.print("ID del articulo a eliminar: ");
+            String idStr = scanner.nextLine().trim();
+            Validador.validarNumeroPositivo(idStr, "ID Articulo");
+
+            int id = Integer.parseInt(idStr);
+            Articulo articulo = gestor.obtenerArticuloPorId(id);
+            if (articulo == null) {
+                System.out.println("No existe ningun articulo con ese ID.");
+                return;
+            }
+
+            System.out.print("Confirmar eliminacion del articulo '" + articulo.getTitulo() + "' (s/n): ");
+            String confirmacion = scanner.nextLine().trim().toLowerCase();
+            if (!confirmacion.equals("s")) {
+                System.out.println("Operacion cancelada.");
+                return;
+            }
+
+            gestor.eliminarArticulo(id);
+            System.out.println("Articulo eliminado correctamente.");
+        } catch (BibliotecaException e) {
+            System.out.println("Error al eliminar articulo: " + e.getMessage());
+        }
+    }
+
+    private static void eliminarUsuario() {
+        System.out.println("\n-- ELIMINAR USUARIO --");
+        try {
+            System.out.print("DNI del usuario a eliminar (ej: 12345678A): ");
+            String dni = scanner.nextLine().trim();
+            Validador.validarDni(dni);
+
+            Usuario usuario = gestor.obtenerUsuarioPorDni(dni);
+            if (usuario == null) {
+                System.out.println("No existe ningun usuario con ese DNI.");
+                return;
+            }
+
+            System.out.print("Confirmar eliminacion del usuario '" + usuario.getNombreCompleto() + "' (s/n): ");
+            String confirmacion = scanner.nextLine().trim().toLowerCase();
+            if (!confirmacion.equals("s")) {
+                System.out.println("Operacion cancelada.");
+                return;
+            }
+
+            gestor.eliminarUsuario(dni);
+            System.out.println("Usuario eliminado correctamente.");
+        } catch (BibliotecaException e) {
+            System.out.println("Error al eliminar usuario: " + e.getMessage());
         }
     }
 }

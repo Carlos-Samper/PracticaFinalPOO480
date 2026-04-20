@@ -55,20 +55,20 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtLibroTitulo" layoutX="10.0" layoutY="160.0" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="1" />
+            <TextField fx:id="txtLibroTitulo" layoutX="10.0" layoutY="160.0" prefHeight="45.0" promptText="Ej: El Quijote" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="1" />
             
             <Label text="Autor" textFill="#78350f" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtLibroAutor" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="3" />
+            <TextField fx:id="txtLibroAutor" prefHeight="45.0" promptText="Ej: Miguel de Cervantes" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="3" />
             <Label text="ISBN" textFill="#78350f" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtLibroIsbn" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="5" />
+            <TextField fx:id="txtLibroIsbn" prefHeight="45.0" promptText="Ej: 978-84-376-0494-7" style="-fx-background-color: FEDAC7; -fx-border-color: #e7d8c5; -fx-border-radius: 15;" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       

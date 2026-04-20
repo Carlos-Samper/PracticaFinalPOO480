@@ -1,5 +1,7 @@
 package org.proyectofinal480.Logica;
 
+import org.proyectofinal480.Excepciones.BibliotecaException;
+import org.proyectofinal480.Excepciones.ValidacionException;
 import org.proyectofinal480.Modelo.*;
 import org.proyectofinal480.Modelo.Abstractos.Articulo;
 import org.proyectofinal480.Persistencia.*;
@@ -27,30 +29,26 @@ public class GestorBiblioteca {
         this.transaccionDAO = new TransaccionDAO();
     }
 
-    public void registrarUsuario(Usuario usuario) throws Exception {
+    public void registrarUsuario(Usuario usuario) throws BibliotecaException {
         if (usuarioDAO.obtenerUsuarioPorDni(usuario.getDni()) != null) {
-            throw new Exception("Ya existe un usuario registrado con el DNI: " + usuario.getDni());
+            throw new BibliotecaException("Ya existe un usuario registrado con el DNI: " + usuario.getDni());
         }
-        if (!usuarioDAO.registrarUsuario(usuario)) {
-            throw new Exception("Error al guardar el usuario en la base de datos.");
-        }
+        usuarioDAO.registrarUsuario(usuario);
     }
 
-    public void registrarArticulo(Articulo articulo) throws Exception {
-        if (!articuloDAO.registrarArticulo(articulo)) {
-            throw new Exception("Error al guardar el articulo en la base de datos.");
-        }
+    public void registrarArticulo(Articulo articulo) throws BibliotecaException {
+        articuloDAO.registrarArticulo(articulo);
     }
 
-    public List<Usuario> obtenerTodosLosUsuarios() {
+    public List<Usuario> obtenerTodosLosUsuarios() throws BibliotecaException {
         return usuarioDAO.listarTodos();
     }
 
-    public List<Articulo> obtenerTodosLosArticulos() {
+    public List<Articulo> obtenerTodosLosArticulos() throws BibliotecaException {
         return articuloDAO.listarTodos();
     }
 
-    public Articulo obtenerArticuloPorId(int id) {
+    public Articulo obtenerArticuloPorId(int id) throws BibliotecaException {
         List<Articulo> articulos = articuloDAO.listarTodos();
         for (Articulo a : articulos) {
             if (a.getId() == id) {
@@ -60,18 +58,18 @@ public class GestorBiblioteca {
         return null;
     }
 
-    public Usuario obtenerUsuarioPorDni(String dni) {
+    public Usuario obtenerUsuarioPorDni(String dni) throws BibliotecaException {
         return usuarioDAO.obtenerUsuarioPorDni(dni);
     }
 
-    public List<Transaccion> obtenerTodasLasTransacciones() {
+    public List<Transaccion> obtenerTodasLasTransacciones() throws BibliotecaException {
         return transaccionDAO.listarTodos();
     }
 
-    public List<Articulo> buscarArticulosPorTitulo(String tituloBusqueda) {
+    public List<Articulo> buscarArticulosPorTitulo(String tituloBusqueda) throws BibliotecaException {
         List<Articulo> articulos = articuloDAO.listarTodos();
         List<Articulo> resultados = new ArrayList<>();
-        
+
         for (Articulo a : articulos) {
             if (a.getTitulo().toLowerCase().contains(tituloBusqueda.toLowerCase())) {
                 resultados.add(a);
@@ -80,61 +78,81 @@ public class GestorBiblioteca {
         return resultados;
     }
 
-    public void prestarArticulo(int idArticulo, String dniUsuario) throws Exception {
+    public void prestarArticulo(int idArticulo, String dniUsuario) throws BibliotecaException {
         Usuario usuario = usuarioDAO.obtenerUsuarioPorDni(dniUsuario);
         if (usuario == null) {
-            throw new Exception("El usuario con DNI " + dniUsuario + " no existe.");
+            throw new BibliotecaException("El usuario con DNI " + dniUsuario + " no existe.");
         }
 
         Articulo articulo = obtenerArticuloPorId(idArticulo);
         if (articulo == null) {
-            throw new Exception("El articulo seleccionado no existe.");
+            throw new BibliotecaException("El articulo seleccionado no existe.");
         }
         if (!articulo.isDisponible()) {
-            throw new Exception("El articulo ya esta prestado a otro usuario.");
+            throw new BibliotecaException("El articulo ya esta prestado a otro usuario.");
         }
-
 
         LocalDate fechaDevolucion = LocalDate.now().plusDays(articulo.getDiasPrestamo());
 
         articulo.prestar(dniUsuario, fechaDevolucion);
 
-        if (!articuloDAO.actualizarEstado(articulo)) {
-            throw new Exception("Error grave al actualizar el estado en la base de datos.");
-        }
+        articuloDAO.actualizarEstado(articulo);
 
         Transaccion transaccion = new Transaccion("PRESTAMO", dniUsuario, idArticulo);
         transaccionDAO.registrarTransaccion(transaccion);
     }
 
-    public void devolverArticulo(int idArticulo) throws Exception {
+    public double devolverArticulo(int idArticulo) throws BibliotecaException {
         Articulo articulo = obtenerArticuloPorId(idArticulo);
         if (articulo == null) {
-            throw new Exception("El articulo no existe.");
+            throw new BibliotecaException("El articulo no existe.");
         }
         if (articulo.isDisponible()) {
-            throw new Exception("Este articulo ya consta como devuelto y disponible.");
+            throw new BibliotecaException("Este articulo ya consta como devuelto y disponible.");
         }
 
         LocalDate fechaEsperada = articulo.getFechaDevolucion();
         LocalDate hoy = LocalDate.now();
+        double recargoTotal = 0.0;
 
         if (fechaEsperada != null && hoy.isAfter(fechaEsperada)) {
             long diasRetraso = ChronoUnit.DAYS.between(fechaEsperada, hoy);
-            double recargoTotal = diasRetraso * RECARGO_POR_DIA;
-            System.out.println("ATENCION: El articulo se devuelve con " + diasRetraso + " dias de retraso.");
-            System.out.println("Debe pagar un recargo de: " + recargoTotal + " euros.");
+            recargoTotal = diasRetraso * RECARGO_POR_DIA;
         }
 
         String dniUsuarioQueDevuelve = articulo.getPrestadoADni();
 
         articulo.devolver();
 
-        if (!articuloDAO.actualizarEstado(articulo)) {
-            throw new Exception("Error grave al actualizar el estado en la base de datos.");
-        }
+        articuloDAO.actualizarEstado(articulo);
 
         Transaccion transaccion = new Transaccion("DEVOLUCION", dniUsuarioQueDevuelve, idArticulo);
         transaccionDAO.registrarTransaccion(transaccion);
+
+        return recargoTotal;
+    }
+
+    public void eliminarArticulo(int id) throws BibliotecaException {
+        Articulo articulo = obtenerArticuloPorId(id);
+        if (articulo == null) {
+            throw new BibliotecaException("No existe ningun articulo con ID: " + id);
+        }
+        if (!articulo.isDisponible()) {
+            throw new BibliotecaException("No se puede eliminar el articulo porque esta prestado actualmente.");
+        }
+        articuloDAO.eliminarArticulo(id);
+    }
+
+    public void eliminarUsuario(String dni) throws BibliotecaException {
+        if (usuarioDAO.obtenerUsuarioPorDni(dni) == null) {
+            throw new BibliotecaException("No existe ningun usuario con DNI: " + dni);
+        }
+        List<Articulo> articulos = articuloDAO.listarTodos();
+        for (Articulo a : articulos) {
+            if (dni.equals(a.getPrestadoADni())) {
+                throw new BibliotecaException("No se puede eliminar el usuario porque tiene articulos prestados.");
+            }
+        }
+        usuarioDAO.eliminarUsuario(dni);
     }
 }

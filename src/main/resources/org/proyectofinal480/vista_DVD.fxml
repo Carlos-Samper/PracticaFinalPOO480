@@ -12,17 +12,13 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<!--Separar según responsabilidades Vistas / Formularios-->
-
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #fff9e6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.proyectofinal480.Controladores.ControladorVistas">
    <children>
-      <!-- SIDEBAR - PALETA ROJO ÓXIDO VINTAGE -->
       <VBox prefWidth="280.0" spacing="10.0" style="-fx-background-color: #9c2007; -fx-border-color: #781a06; -fx-border-width: 0 2 0 0;">
          <padding>
             <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
          </padding>
          <children>
-            <!-- Logo / Título App -->
             <HBox alignment="CENTER_LEFT" spacing="12.0">
                <children>
                   <Label text="biblio virtual" textFill="#fedac7">
@@ -48,7 +44,6 @@
                </VBox.margin>
             </HBox>
 
-            <!-- Sección Inventario (Libros, Revistas, DVD) -->
             <Label text="INVENTARIO" textFill="#fca5a5">
                <font>
                   <Font name="System Bold" size="11.0" />
@@ -85,7 +80,6 @@
                </font>
             </Button>
 
-            <!-- Sección Administración (Usuarios, Préstamos) -->
             <Label text="GESTIÓN" textFill="#fca5a5">
                <font>
                   <Font name="System Bold" size="11.0" />
@@ -126,13 +120,11 @@
          </children>
       </VBox>
 
-      <!-- ÁREA DE CONTENIDO - TONOS CREMA Y ARENA -->
       <VBox spacing="25.0" HBox.hgrow="ALWAYS">
          <padding>
             <Insets bottom="32.0" left="40.0" right="40.0" top="32.0" />
          </padding>
          <children>
-            <!-- Cabecera con acciones principales -->
             <HBox alignment="CENTER_LEFT">
                <children>
                   <VBox>
@@ -160,7 +152,6 @@
                </children>
             </HBox>
 
-            <!-- Barra de búsqueda y filtros por disponibilidad -->
             <HBox spacing="16.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="45.0" style="-fx-background-color: FEDAC7; -fx-background-radius: 12; -fx-border-color: #e7d8c5; -fx-border-radius: 12;" HBox.hgrow="ALWAYS">
@@ -177,7 +168,6 @@
                         </TextField>
                      </children>
                   </HBox>
-                  <!-- Filtros: Todos, Disponibles, Prestados -->
                   <HBox alignment="CENTER" prefHeight="45.0" spacing="5.0" style="-fx-background-color: FEDAC7; -fx-background-radius: 12; -fx-border-color: #e7d8c5; -fx-border-radius: 12; -fx-padding: 4;">
                      <children>
                         <Button fx:id="btnTodo" mnemonicParsing="false" prefHeight="35.0" prefWidth="85.0" style="-fx-background-color: #9c2007; -fx-background-radius: 8;" text="Todos" textFill="WHITE" onAction="#handleFiltroTodo" />
@@ -188,7 +178,6 @@
                </children>
             </HBox>
 
-            <!-- Tabla principal con botones de acción Prestar/Devolver -->
             <VBox style="-fx-background-color: #fff; -fx-background-radius: 15; -fx-border-color: FEDAC7; -fx-border-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);" VBox.vgrow="ALWAYS">
                <children>
                   <TableView fx:id="tvDVDs" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 10;" VBox.vgrow="ALWAYS">
@@ -203,10 +192,9 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <!-- Botones de ejemplo de acción para la lógica (Simulados en UI) -->
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" spacing="10.0" style="-fx-background-color: #fdfcf0; -fx-background-radius: 0 0 15 15; -fx-padding: 0 20 0 0; -fx-border-color: #e7d8c5; -fx-border-width: 1 0 0 0;">
                      <children>
-                        <Button fx:id="btnPrestar" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #9c2007; -fx-background-radius: 6;" text="Prestar Artículo" textFill="WHITE" HBox.hgrow="ALWAYS" onAction="#handlePrestar">
+                        <Button fx:id="btnPrestar" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #9c2007; -fx-background-radius: 6;" text="Prestar Articulo" textFill="WHITE" HBox.hgrow="ALWAYS" onAction="#handlePrestar">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -214,7 +202,15 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnDevolver" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #fff; -fx-border-color: #9c2007; -fx-border-radius: 6; -fx-background-radius: 6;" text="Devolver Artículo" textFill="#9c2007" HBox.hgrow="ALWAYS" onAction="#handleDevolver">
+                        <Button fx:id="btnDevolver" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #fff; -fx-border-color: #9c2007; -fx-border-radius: 6; -fx-background-radius: 6;" text="Devolver Articulo" textFill="#9c2007" HBox.hgrow="ALWAYS" onAction="#handleDevolver">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnBorrar" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #fff; -fx-border-color: #7f1d1d; -fx-border-radius: 6; -fx-background-radius: 6;" text="Eliminar Articulo" textFill="#7f1d1d" HBox.hgrow="ALWAYS" onAction="#handleBorrar">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
