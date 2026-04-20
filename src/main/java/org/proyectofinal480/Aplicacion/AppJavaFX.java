@@ -13,7 +13,7 @@ public class AppJavaFX extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-            URL fxmlLocation = getClass().getResource("/org/proyectofinal480/vista_DVD.fxml");
+            URL fxmlLocation = getClass().getResource("/org/proyectofinal480/vista_libros.fxml");
 
             FXMLLoader loader = new FXMLLoader(fxmlLocation);
             Parent root = loader.load();
