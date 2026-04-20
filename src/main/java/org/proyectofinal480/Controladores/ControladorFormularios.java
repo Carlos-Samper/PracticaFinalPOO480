@@ -13,6 +13,7 @@ import org.proyectofinal480.Modelo.Concretos.DVD;
 import org.proyectofinal480.Modelo.Concretos.Libro;
 import org.proyectofinal480.Modelo.Concretos.Revista;
 import org.proyectofinal480.Modelo.Usuario;
+import org.proyectofinal480.Persistencia.ConexionDB;
 
 public class ControladorFormularios {
 
@@ -200,6 +201,7 @@ public class ControladorFormularios {
 
     private void cerrarVentana(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        ConexionDB.cerrarConexion();
         stage.close();
     }
 

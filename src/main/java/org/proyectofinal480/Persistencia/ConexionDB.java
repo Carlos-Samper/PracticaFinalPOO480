@@ -14,7 +14,7 @@ public class ConexionDB {
         try {
             if (conexion == null || conexion.isClosed()) {
                 conexion = DriverManager.getConnection(URL);
-                System.out.println("Conexion a SQLite establecida correctamente.");
+                System.out.println("Conexión Ok");
             }
         } catch (SQLException e) {
             System.err.println("Error de SQL al intentar conectar: " + e.getMessage());
