@@ -3,6 +3,7 @@ package org.proyectofinal480.Modelo.Concretos;
 import org.proyectofinal480.Modelo.Abstractos.Articulo;
 
 public class DVD extends Articulo {
+    public static final int MAX_DIAS_PRESTAMO = 3;
     String director;
     int duracion;
 
@@ -23,6 +24,6 @@ public class DVD extends Articulo {
 
     @Override
     public int getDiasPrestamo() {
-        return 3;
+        return MAX_DIAS_PRESTAMO;
     }
 }

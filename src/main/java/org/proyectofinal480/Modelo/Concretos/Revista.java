@@ -3,6 +3,8 @@ package org.proyectofinal480.Modelo.Concretos;
 import org.proyectofinal480.Modelo.Abstractos.Articulo;
 
 public class Revista extends Articulo {
+
+    public static final int MAX_DIAS_PRESTAMO = 7;
     private String issn;
     private int numero;
 
@@ -23,7 +25,7 @@ public class Revista extends Articulo {
 
     @Override
     public int getDiasPrestamo() {
-        return 7;
+        return MAX_DIAS_PRESTAMO;
     }
 }
 

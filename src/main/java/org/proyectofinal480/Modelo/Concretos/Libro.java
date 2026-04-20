@@ -3,6 +3,8 @@ package org.proyectofinal480.Modelo.Concretos;
 import org.proyectofinal480.Modelo.Abstractos.Articulo;
 
 public class Libro extends Articulo {
+
+    public static final int MAX_DIAS_PRESTAMO = 15;
     private String autor;
     private String isbn;
 
@@ -23,7 +25,7 @@ public class Libro extends Articulo {
 
     @Override
     public int getDiasPrestamo() {
-        return 15;
+        return MAX_DIAS_PRESTAMO;
     }
 }
 
