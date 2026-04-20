@@ -1,4 +1,4 @@
-package org.proyectofinal480.Modelo.Concretos;
+package org.proyectofinal480;
 
 import java.util.ArrayList;
 import java.util.Date;

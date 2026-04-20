@@ -14,4 +14,5 @@ module org.example.proyectofinal {
     exports org.proyectofinal480.Controladores;
     exports org.proyectofinal480.Excepciones;
     exports org.proyectofinal480.Logica;
+    opens org.proyectofinal480 to javafx.base, javafx.controls, javafx.fxml;
 }
