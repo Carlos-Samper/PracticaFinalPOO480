@@ -14,18 +14,18 @@ public class Libro extends Articulo {
         this.isbn = isbn;
     }
 
-    @Override
-    public String obtenerResumen() { return "LIBRO: " + titulo + " | Autor: " + autor + " | ISBN: " + isbn; }
-
     public String getAutor() { return autor; }
-    public void setAutor(String autor) { this.autor = autor; }
 
     public String getIsbn() { return isbn; }
-    public void setIsbn(String isbn) { this.isbn = isbn; }
 
     @Override
     public int getDiasPrestamo() {
         return MAX_DIAS_PRESTAMO;
+    }
+
+    @Override
+    public String toString() {
+        return "LIBRO: " + titulo + " | Autor: " + autor + " | ISBN: " + isbn;
     }
 }
 

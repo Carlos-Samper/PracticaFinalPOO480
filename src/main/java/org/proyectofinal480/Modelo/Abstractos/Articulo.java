@@ -3,6 +3,7 @@ package org.proyectofinal480.Modelo.Abstractos;
 import java.time.LocalDate;
 
 public abstract class Articulo implements IPrestable {
+
     protected int id;
     protected String titulo;
     protected boolean disponible;
@@ -42,20 +43,19 @@ public abstract class Articulo implements IPrestable {
         }
     }
 
-    public abstract  String obtenerResumen();
-
     public int getId() { return id; }
+
     public void setId(int id) { this.id = id; }
 
     public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
 
     public LocalDate getFechaDevolucion() { return fechaDevolucion; }
+
     public void setFechaDevolucion(LocalDate fechaDevolucion) { this.fechaDevolucion = fechaDevolucion; }
 
     public String getPrestadoADni() { return prestadoADni; }
+
     public void setPrestadoADni(String prestadoADni) { this.prestadoADni = prestadoADni; }
 
     public void setDisponible(boolean disponible) { this.disponible = disponible; }
-
 }

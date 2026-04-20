@@ -14,18 +14,18 @@ public class Revista extends Articulo {
         this.numero = numero;
     }
 
-    @Override
-    public String obtenerResumen() { return "REVISTA: " + titulo + " | ISSN: " + issn + " | Num: " + numero; }
-
     public String getIssn() { return issn; }
-    public void setIssn(String issn) { this.issn = issn; }
 
     public int getNumero() { return numero; }
-    public void setNumero(int numero) { this.numero = numero; }
 
     @Override
     public int getDiasPrestamo() {
         return MAX_DIAS_PRESTAMO;
+    }
+
+    @Override
+    public String toString() {
+        return "REVISTA: " + titulo + " | ISSN: " + issn + " | Num: " + numero;
     }
 }
 
